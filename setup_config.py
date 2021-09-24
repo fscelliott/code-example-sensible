@@ -48,25 +48,21 @@ def create_config(doc_type_id):
     'Content-Type': 'application/json',
     'Authorization': 'Bearer {}'.format(API_KEY)}
   json_response = requests.request("GET", url, headers=headers, data=payload).json()
+  # create and publish config if doesn't already exist
   if config_name not in json.dumps(json_response):
-    print("Creating config named {}\n".format(config_name))
+    print("Creating config '{}'\n".format(config_name))
     payload2 = json.dumps({
       "name": config_name,
       "configuration": config,
       "publish_as": "production"
     })
     response = requests.request("POST", url, headers=headers, data=payload2)
+  # republish the configuration if already exists
   else:
-    # check if user created draft without publishing it, if so, publish to prod env
-    for i in range(len(json_response)):
-      if config_name in json_response[i]["name"]:
-        if not "production" in json.dumps(json_response[i]):
-          publish_config(doc_type_id)
-        else:
-          print(config_name , "Config named {} already exists in prod env, skipping publishing\n".format(config_name))
+    publish_config(doc_type_id)
 
 def publish_config(doc_type_id):
-  print("Publishing draft config named {} to prod env\n".format(config_name))
+  print("Publishing config '{}' to prod env\n".format(config_name))
   url = "https://api.sensible.so/dev/document_types/{}/configurations/anyco".format(doc_type_id)
   payload = json.dumps({
     "configuration": config,
