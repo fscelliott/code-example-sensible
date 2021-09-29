@@ -12,7 +12,7 @@ extract structured data from PDFs
 '''
 
 def extract_from_local_doc():  
-  print("extracting from doc: ", doc_local_path)
+  print("extracting from doc {}\n".format(doc_local_path))
   try:
     with open(doc_local_path, 'rb') as pdf_file:
       pdf_bytes = pdf_file.read()
@@ -34,10 +34,12 @@ def extract_from_local_doc():
     raise SystemExit(err)
   print('EXTRACTED DATA:\n')  
   print(json.dumps(response.json(), indent=2))
+
+
 if __name__ == '__main__':
   size_mb= os.path.getsize(doc_local_path)/(1024*1024)
   if size_mb >= 4.5:
-    Print("PDF greater than 4.5 MB; attempting async extraction")
+    Print("PDF greater than 4.5 MB; attempting async extraction.")
     extraction_id = extract_from_doc_url()
     retrieve_extraction(extraction_id)
   else:
