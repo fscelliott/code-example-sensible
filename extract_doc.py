@@ -12,7 +12,7 @@ extract structured data from PDFs
 '''
 
 def extract_from_local_doc():  
-  print("extracting from doc {}\n".format(doc_local_path))
+  print("extracting from doc: {}\n".format(doc_local_path))
   try:
     with open(doc_local_path, 'rb') as pdf_file:
       pdf_bytes = pdf_file.read()
