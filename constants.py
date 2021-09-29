@@ -3,7 +3,7 @@ import json
 
 doc_type = "auto_insurance_quote_api_test"
 config_name = "anyco"
-document_url = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco_golden.pdf"
+document_url = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
 config = json.dumps({
   "fields": [
     {
