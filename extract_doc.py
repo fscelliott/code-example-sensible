@@ -2,17 +2,17 @@
 import requests
 import time
 import json
-import sys
+import os
 from constants import *
 from secrets import *
-import base64
+from _async_extract_doc import *
 
 '''
-extract structured data from PDFs under 4.5MB or that require under 30 seconds to process
+extract structured data from PDFs
 '''
 
 def extract_from_local_doc():  
-  print(doc_local_path)
+  print("extracting from doc: ", doc_local_path)
   try:
     with open(doc_local_path, 'rb') as pdf_file:
       pdf_bytes = pdf_file.read()
@@ -32,6 +32,13 @@ def extract_from_local_doc():
   except requests.RequestException as err:
     print(response.text)
     raise SystemExit(err)
+  print('EXTRACTED DATA:\n')  
   print(json.dumps(response.json(), indent=2))
 if __name__ == '__main__':
-  extract_from_local_doc()
+  size_mb= os.path.getsize(doc_local_path)/(1024*1024)
+  if size_mb >= 4.5:
+    Print("PDF greater than 4.5 MB; attempting async extraction")
+    extraction_id = extract_from_doc_url()
+    retrieve_extraction(extraction_id)
+  else:
+    extract_from_local_doc()

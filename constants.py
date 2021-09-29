@@ -6,7 +6,8 @@ doc_type = "auto_insurance_quote_api"
 config_name = "anyco"
 document_url = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
 doc_local_path = "auto_insurance_anyco.pdf"
-# constatns to publish:
+
+# constants to publish:
 '''
 doc_type = "DOC_TYPE_NAME"
 config_name = "CONFIG_NAME"
