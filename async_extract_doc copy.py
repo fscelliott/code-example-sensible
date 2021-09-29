@@ -7,7 +7,7 @@ from constants import *
 from secrets import *
 
 '''
-extract structured data from the example PDF specified in constants.py
+extract structured data from PDFs over 4.5MB or that require over 30 seconds to process
 '''
 
 def extract_from_doc_url():  

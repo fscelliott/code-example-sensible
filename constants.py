@@ -2,7 +2,7 @@
 import json
 
 # test constants:
-doc_type = "auto_insurance_quote_api_test"
+doc_type = "auto_insurance_quote_api"
 config_name = "anyco"
 document_url = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
 doc_local_path = "auto_insurance_anyco.pdf"

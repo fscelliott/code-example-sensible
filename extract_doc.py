@@ -8,16 +8,17 @@ from secrets import *
 import base64
 
 '''
-extract structured data from the example PDF specified in constants.py
+extract structured data from PDFs under 4.5MB or that require under 30 seconds to process
 '''
 
 def extract_from_local_doc():  
   print(doc_local_path)
-  with open(doc_local_path, 'rb') as pdf_file:
-    # encoded_string = base64.b64encode(pdf_file.read())
-    # print(encoded_string)
-    pdf_bytes = pdf_file.read()
-    pdf_file.close()
+  try:
+    with open(doc_local_path, 'rb') as pdf_file:
+      pdf_bytes = pdf_file.read()
+      pdf_file.close()
+  except IOError as err:
+    raise SystemExit(err)
   url = "https://api.sensible.so/dev/extract/{}".format(doc_type)
   payload = pdf_bytes
   headers = {
