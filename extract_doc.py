@@ -14,11 +14,12 @@ extract structured data from the example PDF specified in constants.py
 def extract_from_local_doc():  
   print(doc_local_path)
   with open(doc_local_path, 'rb') as pdf_file:
-    encoded_string = base64.b64encode(pdf_file.read())
-    print(encoded_string)
+    # encoded_string = base64.b64encode(pdf_file.read())
+    # print(encoded_string)
+    pdf_bytes = pdf_file.read()
     pdf_file.close()
   url = "https://api.sensible.so/dev/extract/{}".format(doc_type)
-  payload= encoded_string
+  payload = pdf_bytes
   headers = {
   'Authorization': 'Bearer {}'.format(API_KEY),
   'Content-Type': 'application/pdf'
