@@ -12,11 +12,11 @@ extract structured data from PDFs over 4.5MB or that require over 30 seconds to 
 
 def extract_from_doc_url():  
   url = "https://api.sensible.so/dev/extract_from_url/{}".format(doc_type)
-  payload = json.dumps({"document_url": document_url})
+  payload = json.dumps({"doc_url": doc_url})
   headers = {
     'Authorization': 'Bearer {}'.format(API_KEY),  'Content-Type': 'application/json'
   }
-  print ("Initiating asyn request to extract from doc at url {}\n".format(document_url))
+  print ("Initiating asyn request to extract from doc at url {}\n".format(doc_url))
   try:
     response  = requests.request("POST", url, headers=headers, data=payload)
     response.raise_for_status()

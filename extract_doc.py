@@ -27,7 +27,7 @@ def extract_from_local_doc():
 }
 
   try:
-    response  = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload)
     response.raise_for_status()
   except requests.RequestException as err:
     print(response.text)
@@ -39,6 +39,6 @@ def extract_from_local_doc():
 if __name__ == '__main__':
   size_mb= os.path.getsize(doc_local_path)/(1024*1024)
   if size_mb > 4.5:
-    print("PDF greater than 4.5 MB. Run _async_extract_doc.py instead and define document_url in constants.py.")
+    print("PDF greater than 4.5 MB. Run _async_extract_doc.py instead and define doc_url in constants.py.")
   else:
     extract_from_local_doc()
