@@ -1,6 +1,5 @@
 #!/usr/local/bin/python
 import requests
-import time
 import json
 import os
 from constants import *

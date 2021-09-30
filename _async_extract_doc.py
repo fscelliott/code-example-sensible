@@ -2,7 +2,6 @@
 import requests
 import time
 import json
-import sys
 from constants import *
 from secrets import *
 
