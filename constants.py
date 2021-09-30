@@ -1,5 +1,4 @@
 #!/usr/local/bin/python
-import json
 
 # test constants for development (TODO: delete before publishing):
 doc_type = "auto_insurance_quote"
