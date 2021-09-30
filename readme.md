@@ -11,8 +11,8 @@ To run the code:
   - add your API_KEY (`API_KEY = "YOUR_API_KEY"`) to the secrets.py file. 
   - Verify that .gitignore lists secrets.py so you don't expose your key publically.
 - In constants.py, specify:
-  - the local path to your PDF
-  - the name of the corresponding doc type you created in the [Sensible app](https://app.sensible.so/).
+  - the local path to your PDF (`doc_local_path`).
+  - the name of the corresponding doc type you created in the [Sensible app](https://app.sensible.so/) (`doc_type`).
 - Run `python extract_doc.py`. 
 
 Run with examples
