@@ -39,6 +39,6 @@ def extract_from_local_doc():
 if __name__ == '__main__':
   size_mb= os.path.getsize(doc_local_path)/(1024*1024)
   if size_mb > 4.5:
-    print("PDF greater than 4.5 MB. Run _async_extract_doc.py instead and define document_url.")
+    print("PDF greater than 4.5 MB. Run _async_extract_doc.py instead and define document_url in constants.py.")
   else:
     extract_from_local_doc()
