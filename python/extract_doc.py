@@ -2,13 +2,15 @@
 import requests
 import json
 import os
-from constants import *
 from secrets import *
-from _async_extract_doc import *
+
 
 '''
 extract structured data from PDFs
 '''
+
+doc_type = "DOC_TYPE_NAME"
+doc_local_path = "PDF/PATH.pdf"
 
 def extract_from_local_doc():  
   print("extracting from doc: {}\n".format(doc_local_path))
