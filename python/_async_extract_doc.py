@@ -8,8 +8,9 @@ from secrets import *
 extract structured data from PDFs over 4.5MB or that require over 30 seconds to process
 '''
 
-doc_type = ""
-doc_url = "https://DOC_URL.pdf"
+doc_type = "DOC_TYPE_NAME"
+doc_url = "https://DOC-URL.pdf"
+
 
 def extract_from_doc_url():  
   url = "https://api.sensible.so/dev/extract_from_url/{}".format(doc_type)
