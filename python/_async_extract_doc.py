@@ -2,7 +2,7 @@
 import requests
 import time
 import json
-from secrets import *
+from secrets import API_KEY
 
 '''
 extract structured data from PDFs over 4.5MB or that require over 30 seconds to process

@@ -2,7 +2,7 @@
 import requests
 import json
 import os
-from secrets import *
+from secrets import API_KEY
 
 
 '''
