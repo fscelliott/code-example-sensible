@@ -30,6 +30,7 @@ def extract_from_doc_url():
 
 # TODO: replace all /dev/ with /v0/  
 def retrieve_extraction(id):
+  time.sleep(3)
   print('Retrieving extracted data from extraction id {}\n'.format(id))
   url = "https://api.sensible.so/dev/documents/{}".format(id)
   payload={}
@@ -43,7 +44,7 @@ def retrieve_extraction(id):
     print(response.text)
     raise SystemExit(err)
   # to avoid polling in prod, implement a webhook 
-  time.sleep(5)
+ 
   while "parsed_document" not in response.text:
     print(response.json()["status"],"\n")
     response = requests.request("GET", url, headers=headers, data=payload)
