@@ -44,7 +44,6 @@ def retrieve_extraction(id):
     print(response.text)
     raise SystemExit(err)
   # to avoid polling in prod, implement a webhook 
- 
   while "parsed_document" not in response.text:
     print(response.json()["status"],"\n")
     response = requests.request("GET", url, headers=headers, data=payload)

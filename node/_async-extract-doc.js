@@ -19,7 +19,7 @@ var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/
 
 
 var extractFromDocUrl = async function() {
-
+    console.log(`Initiating asyn request to extract from doc at url ${docUrl}`)
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${API_KEY}`);
     myHeaders.append("Content-Type", "application/json");
@@ -45,7 +45,7 @@ var extractFromDocUrl = async function() {
 
 
   var retrieveExtraction = async function(id) {
-
+    await new Promise(r => setTimeout(r, 3000));
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${API_KEY}`);
     var requestOptions = {
@@ -53,7 +53,8 @@ var extractFromDocUrl = async function() {
         headers: myHeaders,
         redirect: 'follow'
     };
-    await new Promise(r => setTimeout(r, 3000));
+
+    console.log(`Retrieving extracted data from extraction id ${id}`);
     let response = await fetch(`https://api.sensible.so/dev/documents/${id}`, requestOptions);
     let responseJson = await response.json();
 
@@ -64,7 +65,7 @@ var extractFromDocUrl = async function() {
         response = await fetch(`https://api.sensible.so/dev/documents/${id}`, requestOptions);
         responseJson = await response.json();
         if (responseJson["status"] == "FAILED") {
-            console.log(responseJson)
+          console.log(JSON.stringify(responseJson, null, 2));
             // TODO: exit gracefully?
             exit()
 
@@ -73,7 +74,7 @@ var extractFromDocUrl = async function() {
         await new Promise(r => setTimeout(r, 3000));
       }
     console.log("EXTRACTED DOC:");
-    console.log(responseJson);
+    console.log(JSON.stringify(responseJson, null, 2));
 
 
 }
