@@ -57,7 +57,7 @@ if (require.main === module) {
     if (sizeMb < 4.5) {
         extractFromLocalFile();
     } else {
-        console.log("PDF greater than 4.5 MB. Run TODO instead and define docUrl")
+        console.log("PDF greater than 4.5 MB. Run _async_extract-doc instead and define docUrl")
 
     }
 }

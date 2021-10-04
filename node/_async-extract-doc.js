@@ -15,7 +15,7 @@ const {
 
 // specify your variable values here  
 var docType = "auto_insurance_quote"
-var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
+var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pd"
 
 
 var extractFromDocUrl = async function() {
