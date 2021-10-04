@@ -7,7 +7,7 @@ To run the code:
 
 - Clone this repo
 - Open a command promt at this cloned directory:
-  - npm `install --save node-fetch` # TODO: isometric-fetch
+  - npm `install --save node-fetch` # TODO: npm install --save isomorphic-fetch
   - run `touch secrets.js`
   - add your API_KEY to the secrets file:
   ```

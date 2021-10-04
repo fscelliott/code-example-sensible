@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var fetch = require("node-fetch");
+var fetch = require('isomorphic-fetch');
 var fs = require('fs');
 var { API_KEY } = require('./secrets.js');
 
@@ -14,14 +14,13 @@ var docLocalPath = "TODELETE_auto_insurance_anyco.pdf"
 var extractFromLocalFile = function(){
 
 try {
-  var data = fs.readFileSync(docLocalPath);
-  // TODO: must I also close the file?   
+  var data = fs.readFileSync(docLocalPath); 
 } catch(e) {
   console.log('Error:', e.stack);
 }
 
 
-var myHeaders = new fetch.Headers();
+var myHeaders = new Headers();
 myHeaders.append("Authorization", `Bearer ${API_KEY}`);
 myHeaders.append("Content-Type", "application/pdf");
 
