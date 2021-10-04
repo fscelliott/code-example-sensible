@@ -41,7 +41,7 @@ def retrieve_extraction(id):
   except requests.RequestException as err:
     print(response.text)
     raise SystemExit(err)
-  # to avoid polling, implement a webhook in prod
+  # to avoid polling in prod, implement a webhook 
   time.sleep(5)
   while "parsed_document" not in response.text:
     print(response.json()["status"],"\n")

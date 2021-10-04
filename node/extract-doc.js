@@ -1,6 +1,8 @@
-var request = require('request');
-import { docLocalPath, docType } from './constants.js';
-import { API_KEY } from './secrets.js';
+require('isomorphic-fetch');
+var docType = "auto_insurance_quote"
+var docLocalPath = "TODELETE_auto_insurance_anyco.pdf"
+//var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
+
 
 var options = {
   'method': 'POST',
