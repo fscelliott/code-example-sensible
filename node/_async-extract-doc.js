@@ -35,31 +35,36 @@ var extractFromDocUrl = async function() {
         redirect: 'follow'
     };
 
-    var myHeaders2 = new Headers();
-    myHeaders2.append("Authorization", `Bearer ${API_KEY}`);
-    var requestOptions2 = {
-        method: 'GET',
-        headers: myHeaders2,
-        redirect: 'follow'
-    };
+
 
     let response = await fetch(`https://api.sensible.so/dev/extract_from_url/${docType}`, requestOptions);
     let responseJson = await response.json();
     let extractionId = responseJson["id"];
-    console.log("ID");
-    console.log(extractionId); // TODO: I think I can now split into 2 functions???
+    return extractionId
+  }
+
+
+  var retrieveExtraction = async function(id) {
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${API_KEY}`);
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
     await new Promise(r => setTimeout(r, 3000));
-    let response2 = await fetch(`https://api.sensible.so/dev/documents/${extractionId}`, requestOptions2);
-    let responseJson2 = await response2.json();
-    console.log("RESPONSE 2");
+    let response = await fetch(`https://api.sensible.so/dev/documents/${id}`, requestOptions);
+    let responseJson = await response.json();
+
 
     // to avoid polling in prod, implement a webhook 
-    while (responseJson2["parsed_document"] == null) {
-        console.log(responseJson2["status"], "\n");
-        response2 = await fetch(`https://api.sensible.so/dev/documents/${extractionId}`, requestOptions2);
-        responseJson2 = await response2.json();
-        if (responseJson2["status"] == "FAILED") {
-            console.log(responseJson2)
+    while (responseJson["parsed_document"] == null) {
+        console.log(responseJson["status"], "\n");
+        response = await fetch(`https://api.sensible.so/dev/documents/${id}`, requestOptions);
+        responseJson = await response.json();
+        if (responseJson["status"] == "FAILED") {
+            console.log(responseJson)
             // TODO: exit gracefully?
             exit()
 
@@ -67,15 +72,19 @@ var extractFromDocUrl = async function() {
         }
         await new Promise(r => setTimeout(r, 3000));
       }
-
-    console.log(responseJson2);
+    console.log("EXTRACTED DOC:");
+    console.log(responseJson);
 
 
 }
 
 
-if (require.main === module) {
-    //var extractionId = extractFromDocUrl();
-    //retrieveExtraction(extractionId);
-    extractFromDocUrl();
+async function main()  {
+    let extractionId = await extractFromDocUrl();
+    retrieveExtraction(extractionId);
+    //extractFromDocUrl();
+}
+
+if (require.main === module) { 
+  main();
 }
