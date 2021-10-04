@@ -27,7 +27,8 @@ def extract_from_doc_url():
     raise SystemExit(err)
   extraction_id = response.json()['id']
   return extraction_id
-  
+
+# TODO: replace all /dev/ with /v0/  
 def retrieve_extraction(id):
   print('Retrieving extracted data from extraction id {}\n'.format(id))
   url = "https://api.sensible.so/dev/documents/{}".format(id)
