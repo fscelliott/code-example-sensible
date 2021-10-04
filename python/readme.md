@@ -17,7 +17,7 @@ To run the code:
 
 Run with examples
 ----
-PYTHON
+
 
 To see example data in a response quickly, run `extract_doc.py` with an example PDF and config:
 

@@ -23,7 +23,7 @@ To run the code:
 
 Run with examples
 ----
-JS
+
 To see example data in a response quickly, run `extract-doc.js` with an example PDF and config:
 
 - Clone this directory and add your API key to the secrets file (see previous steps).
