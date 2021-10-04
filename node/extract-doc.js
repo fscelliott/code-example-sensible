@@ -1,20 +1,28 @@
 #!/usr/bin/env node
 
-const fetch = require("node-fetch");
-const { API_KEY } = require('./secrets.js');
+var fetch = require("node-fetch");
+var fs = require('fs');
+var { API_KEY } = require('./secrets.js');
+
 
 // specify your variable values here  
 var docType = "auto_insurance_quote"
 var docLocalPath = "TODELETE_auto_insurance_anyco.pdf"
 //var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
 
-console.log(API_KEY)
+
+try {
+  var data = fs.readFileSync(docLocalPath);   
+} catch(e) {
+  console.log('Error:', e.stack);
+}
+
 
 var myHeaders = new fetch.Headers();
 myHeaders.append("Authorization", `Bearer ${API_KEY}`);
 myHeaders.append("Content-Type", "application/pdf");
 
-var file = "<file contents here>";
+var file = data;
 
 var requestOptions = {
   method: 'POST',
