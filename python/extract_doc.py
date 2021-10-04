@@ -8,7 +8,7 @@ from secrets import API_KEY
 '''
 extract structured data from PDFs
 '''
-
+# TODO: delete test vars on publish
 # specify your variable values here 
 doc_type = "auto_insurance_quote"
 doc_local_path = "../TODELETE_auto_insurance_anyco.pdf"

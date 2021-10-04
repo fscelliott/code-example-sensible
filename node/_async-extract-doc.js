@@ -5,17 +5,11 @@ var fs = require('fs');
 var {
     API_KEY
 } = require('./secrets.js');
-const {
-    SSL_OP_EPHEMERAL_RSA
-} = require('constants');
-const {
-    exit
-} = require('process');
 
 
 // specify your variable values here  
 var docType = "auto_insurance_quote"
-var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pd"
+var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
 
 
 var extractFromDocUrl = async function() {
