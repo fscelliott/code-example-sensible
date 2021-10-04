@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var fetch = require('isomorphic-fetch');
-var fs = require('fs');
 var {
     API_KEY
 } = require('./secrets.js');
