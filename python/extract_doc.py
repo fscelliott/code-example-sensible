@@ -10,8 +10,8 @@ extract structured data from PDFs
 '''
 
 # specify your variable values here 
-doc_type = "DOC_TYPE_NAME"
-doc_local_path = "PDF/PATH.pdf"
+doc_type = "auto_insurance_quote"
+doc_local_path = "../TODELETE_auto_insurance_anyco.pdf"
 
 def extract_from_local_doc():  
   print("extracting from doc: {}\n".format(doc_local_path))

@@ -6,10 +6,11 @@ var {
     API_KEY
 } = require('./secrets.js');
 
+// TODO: delete test vars on publish
 
 // specify your variable values here  
 var docType = "auto_insurance_quote"
-var docLocalPath = "TODELETE_auto_insurance_anyco.pdf"
+var docLocalPath = "../TODELETE_auto_insurance_anyco.pdf"
 //var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
 
 
