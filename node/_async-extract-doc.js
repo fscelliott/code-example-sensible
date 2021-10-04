@@ -82,7 +82,6 @@ var extractFromDocUrl = async function() {
 async function main()  {
     let extractionId = await extractFromDocUrl();
     retrieveExtraction(extractionId);
-    //extractFromDocUrl();
 }
 
 if (require.main === module) { 
