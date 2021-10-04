@@ -29,8 +29,15 @@ var requestOptions = {
 };
 
 fetch(`https://api.sensible.so/dev/extract_from_url/${docType}`, requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
+  .then(response => response.json())
+  .then(data =>
+
+    {
+      
+      extractionId = data["id"];
+  })
+
+  //.then(result => console.log(result))
   .catch(error => console.log('error', error));
 
 }
