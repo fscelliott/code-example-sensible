@@ -2,7 +2,9 @@
 
 var fetch = require('isomorphic-fetch');
 var fs = require('fs');
-var { API_KEY } = require('./secrets.js');
+var {
+    API_KEY
+} = require('./secrets.js');
 
 
 // specify your variable values here  
@@ -11,52 +13,51 @@ var docLocalPath = "TODELETE_auto_insurance_anyco.pdf"
 //var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
 
 
-var extractFromLocalFile = function(){
+var extractFromLocalFile = function() {
 
-try {
-  var data = fs.readFileSync(docLocalPath); 
-} catch(e) {
-  console.log('Error:', e.stack);
-}
+    try {
+        var data = fs.readFileSync(docLocalPath);
+    } catch (e) {
+        console.log('Error:', e.stack);
+    }
 
 
-var myHeaders = new Headers();
-myHeaders.append("Authorization", `Bearer ${API_KEY}`);
-myHeaders.append("Content-Type", "application/pdf");
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${API_KEY}`);
+    myHeaders.append("Content-Type", "application/pdf");
 
-var file = data;
+    var file = data;
 
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: file,
-  redirect: 'follow'
-};
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: file,
+        redirect: 'follow'
+    };
 
-fetch(`https://api.sensible.so/dev/extract/${docType}`, requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+    fetch(`https://api.sensible.so/dev/extract/${docType}`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
 
 }
 
 if (require.main === module) {
-  var sizeMb;
+    var sizeMb;
 
-  try {
-    const stats = fs.statSync(docLocalPath);
-    sizeMb = stats.size/(1024*1024)
-  } catch (err) {
-    console.error(err)
-  }
+    try {
+        const stats = fs.statSync(docLocalPath);
+        sizeMb = stats.size / (1024 * 1024)
+    } catch (err) {
+        console.error(err)
+    }
 
 
-  console.log(sizeMb)
-  if (sizeMb < 4.5){
-   extractFromLocalFile();
-  }
-  else {
-    console.log("PDF greater than 4.5 MB. Run TODO instead and define docUrl")
+    console.log(sizeMb)
+    if (sizeMb < 4.5) {
+        extractFromLocalFile();
+    } else {
+        console.log("PDF greater than 4.5 MB. Run TODO instead and define docUrl")
 
-  }
+    }
 }
