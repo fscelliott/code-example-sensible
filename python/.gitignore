@@ -1,7 +1,5 @@
-# javascript
-secrets.js
-
-# python
+# API KEY
 secrets.py
+# python
 __pycache__/
 **.py[cod]

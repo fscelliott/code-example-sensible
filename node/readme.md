@@ -7,18 +7,19 @@ To run the code:
 
 - Clone this repo
 - Open a command promt at this cloned directory:
-  - run `touch secrets.py`
-  - add your API_KEY (`API_KEY = "YOUR_API_KEY"`) to the secrets file. 
-  - Verify that .gitignore lists secrets.py so you don't expose your key publically.
-- In extract_doc.py, specify your variable values for:
+  - npm `install --save isomorphic-fetch`
+  - run `touch secrets.js`
+  - add your API_KEY (`export var API_KEY ="YOUR_API_KEY"`) to the secrets file. 
+  - Verify that .gitignore lists the secrets file so you don't expose your key publically.
+- In extract-doc.js, specify your variable values for:
   - the local path to your PDF.
   - the name of the corresponding doc type you created in the [Sensible app](https://app.sensible.so/).
-- Run `python extract_doc.py`. 
+- Run `node extract-docs.js`. 
 
 Run with examples
 ----
 
-To see example data in a response quickly, run `extract_doc.py` with an example PDF and config:
+To see example data in a response quickly, run `extract-doc.js` with an example PDF and config:
 
 - Clone this directory and add your API key to secrets.py (see previous steps).
 - Download an example [auto_insurance_quote PDF](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_quote.pdf).

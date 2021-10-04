@@ -9,6 +9,7 @@ from secrets import API_KEY
 extract structured data from PDFs
 '''
 
+# specify your variable values here 
 doc_type = "DOC_TYPE_NAME"
 doc_local_path = "PDF/PATH.pdf"
 

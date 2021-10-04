@@ -7,7 +7,7 @@ from secrets import API_KEY
 '''
 extract structured data from PDFs over 4.5MB or that require over 30 seconds to process
 '''
-
+# specify your variable values here 
 doc_type = "DOC_TYPE_NAME"
 doc_url = "https://DOC-URL.pdf"
 
