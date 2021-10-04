@@ -23,16 +23,16 @@ To run the code:
 
 Run with examples
 ----
-
+JS
 To see example data in a response quickly, run `extract-doc.js` with an example PDF and config:
 
-- Clone this directory and add your API key to secrets.py (see previous steps).
+- Clone this directory and add your API key to the secrets file (see previous steps).
 - Download an example [auto_insurance_quote PDF](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_quote.pdf).
-- In extract_doc.py, define `doc_local_path` using the path to the example PDF you downloaded.  
+- In extract-doc.js, specify your variable value for the path to the example PDF you downloaded.  
 - In the [Sensible app](https://app.sensible.so/), create and name a doc type (for example, `test_auto_insurance_quote`).
-- In extract_doc.py, define `doc_type` using the name of the doc type you created.
+- In extract-doc.js, specify your variable value for the name of the corresponding doc type you created.
 - In the Sensible app, create a config in the doc type (for example, named `anyco`), and paste the [example JSON](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/json/anyco.json) into the left pane of the config editor.
-- Run `python extract_doc.py`. 
+- Run `node extract-docs.js`. 
 
 
  
