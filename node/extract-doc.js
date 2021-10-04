@@ -11,8 +11,11 @@ var docLocalPath = "TODELETE_auto_insurance_anyco.pdf"
 //var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
 
 
+var extractFromLocalFile = function(){
+
 try {
-  var data = fs.readFileSync(docLocalPath);   
+  var data = fs.readFileSync(docLocalPath);
+  // TODO: must I also close the file?   
 } catch(e) {
   console.log('Error:', e.stack);
 }
@@ -35,3 +38,26 @@ fetch(`https://api.sensible.so/dev/extract/${docType}`, requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
+
+}
+
+if (require.main === module) {
+  var sizeMb;
+
+  try {
+    const stats = fs.statSync(docLocalPath);
+    sizeMb = stats.size/(1024*1024)
+  } catch (err) {
+    console.error(err)
+  }
+
+
+  console.log(sizeMb)
+  if (sizeMb < 4.5){
+   extractFromLocalFile();
+  }
+  else {
+    console.log("PDF greater than 4.5 MB. Run TODO instead and define docUrl")
+
+  }
+}
