@@ -7,9 +7,14 @@ To run the code:
 
 - Clone this repo
 - Open a command promt at this cloned directory:
-  - npm `install --save isomorphic-fetch`
+  - npm `install --save node-fetch` # TODO: isometric-fetch
   - run `touch secrets.js`
-  - add your API_KEY (`export var API_KEY ="YOUR_API_KEY"`) to the secrets file. 
+  - add your API_KEY to the secrets file:
+  ```
+  const API_KEY = "YOUR_API_KEY"
+  exports.API_KEY = API_KEY
+  ```
+
   - Verify that .gitignore lists the secrets file so you don't expose your key publically.
 - In extract-doc.js, specify your variable values for:
   - the local path to your PDF.
