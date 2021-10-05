@@ -5,6 +5,7 @@ var {
     API_KEY
 } = require('./secrets.js');
 
+// TODO: on publish, replace all /dev/ with /v0/
 
 // specify your variable values here  
 var docType = "auto_insurance_quote"
@@ -31,6 +32,9 @@ var extractFromDocUrl = async function() {
 
 
     let response = await fetch(`https://api.sensible.so/dev/extract_from_url/${docType}`, requestOptions);
+    if (!response.ok){
+      console.log(`An error occured: ${response.status}`);
+    };
     let responseJson = await response.json();
     let extractionId = responseJson["id"];
     return extractionId
@@ -38,6 +42,7 @@ var extractFromDocUrl = async function() {
 
 
   var retrieveExtraction = async function(id) {
+    // wait for the extraction to complete before attempting to retrieve it
     await new Promise(r => setTimeout(r, 3000));
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${API_KEY}`);
@@ -49,6 +54,9 @@ var extractFromDocUrl = async function() {
 
     console.log(`Retrieving extracted data from extraction id ${id}`);
     let response = await fetch(`https://api.sensible.so/dev/documents/${id}`, requestOptions);
+    if (!response.ok){
+      console.log(`An error occured: ${response.status}`);
+    };
     let responseJson = await response.json();
 
 
@@ -56,11 +64,14 @@ var extractFromDocUrl = async function() {
     while (responseJson["parsed_document"] == null) {
         console.log(responseJson["status"], "\n");
         response = await fetch(`https://api.sensible.so/dev/documents/${id}`, requestOptions);
+        if (!response.ok){
+          console.log(`An error occured: ${response.status}`);
+        };
         responseJson = await response.json();
         if (responseJson["status"] == "FAILED") {
+          console.log("The extraction failed:")
           console.log(JSON.stringify(responseJson, null, 2));
-            // TODO: exit gracefully?
-            exit()
+
 
 
         }

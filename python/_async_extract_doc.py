@@ -30,6 +30,7 @@ def extract_from_doc_url():
 
 # TODO: replace all /dev/ with /v0/  
 def retrieve_extraction(id):
+  # wait for the extraction to complete before attempting to retrieve it
   time.sleep(3)
   print('Retrieving extracted data from extraction id {}\n'.format(id))
   url = "https://api.sensible.so/dev/documents/{}".format(id)

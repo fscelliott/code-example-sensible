@@ -17,7 +17,7 @@ var docLocalPath = "../TODELETE_auto_insurance_anyco.pdf"
 var extractFromLocalFile = function() {
 
     try {
-        var data = fs.readFileSync(docLocalPath);
+        var pdfBytes = fs.readFileSync(docLocalPath);
     } catch (e) {
         console.log('Error:', e.stack);
     }
@@ -27,7 +27,7 @@ var extractFromLocalFile = function() {
     myHeaders.append("Authorization", `Bearer ${API_KEY}`);
     myHeaders.append("Content-Type", "application/pdf");
 
-    var file = data;
+    var file = pdfBytes;
 
     var requestOptions = {
         method: 'POST',
