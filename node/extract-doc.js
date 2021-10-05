@@ -4,11 +4,12 @@ var fetch = require('isomorphic-fetch');
 var fs = require('fs');
 var { API_KEY } = require('./secrets.js');
 
-// TODO: delete test vars on publish
 
 // specify your variable values here  
 var docType = "auto_insurance_quote"
 var docLocalPath = "../TODELETE_auto_insurance_anyco.pdf"
+// TODO: on publish, specify API key inline here instead + delete test vars
+// var API_KEY = "YOUR_API_KEY"
 
 var extractFromLocalFile = function() {
     try {

@@ -10,6 +10,8 @@ extract structured data from PDFs over 4.5MB or that require over 30 seconds to 
 # specify your variable values here 
 doc_type = "DOC_TYPE_NAME"
 doc_url = "https://DOC-URL.pdf"
+# TODO: on publish, specify API key inline here instead + delete test vars
+# var API_KEY = "YOUR_API_KEY"
 
 
 def extract_from_doc_url():  

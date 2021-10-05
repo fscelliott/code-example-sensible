@@ -12,6 +12,8 @@ extract structured data from PDFs
 # specify your variable values here 
 doc_type = "auto_insurance_quote"
 doc_local_path = "../TODELETE_auto_insurance_anyco.pdf"
+# TODO: on publish, specify API key inline here instead + delete test vars
+# var API_KEY = "YOUR_API_KEY"
 
 def extract_from_local_doc():  
   print("extracting from doc: {}\n".format(doc_local_path))

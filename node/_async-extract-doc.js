@@ -3,12 +3,13 @@
 var fetch = require('isomorphic-fetch');
 var { API_KEY } = require('./secrets.js');
 
-// TODO: on publish, replace all /dev/ with /v0/
+// TODO: on publish, replace all /dev/ with /v0/ in API calls
 
 // specify your variable values here  
 var docType = "auto_insurance_quote"
 var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pd"
-
+// TODO: on publish, specify API key inline here instead + delete test vars
+// var API_KEY = "YOUR_API_KEY"
 
 var extractFromDocUrl = async function() {
     console.log(`Initiating asyn request to extract from doc at url ${docUrl}`)
