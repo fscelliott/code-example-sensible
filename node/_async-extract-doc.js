@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
 var fetch = require('isomorphic-fetch');
-var {
-    API_KEY
-} = require('./secrets.js');
+var { API_KEY } = require('./secrets.js');
 
 // TODO: on publish, replace all /dev/ with /v0/
 
@@ -21,16 +19,12 @@ var extractFromDocUrl = async function() {
     var raw = JSON.stringify({
         "document_url": docUrl
     });
-
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
     };
-
-
-
     let response = await fetch(`https://api.sensible.so/dev/extract_from_url/${docType}`, requestOptions);
     if (!response.ok){
       throw Error(response.statusText);
@@ -39,7 +33,6 @@ var extractFromDocUrl = async function() {
     let extractionId = responseJson["id"];
     return extractionId
   }
-
 
   var retrieveExtraction = async function(id) {
     // wait a few seconds for the extraction to complete before attempting to retrieve it
@@ -51,14 +44,12 @@ var extractFromDocUrl = async function() {
         headers: myHeaders,
         redirect: 'follow'
     };
-
     console.log(`Retrieving extracted data from extraction id ${id}`);
     let response = await fetch(`https://api.sensible.so/dev/documents/${id}`, requestOptions);
     if (!response.ok){
       throw Error(response.statusText);
     };
     let responseJson = await response.json();
-
 
     // to avoid polling in prod for the completed extraction, implement a webhook instead 
     while (responseJson["parsed_document"] == null) {
@@ -76,10 +67,7 @@ var extractFromDocUrl = async function() {
       }
     console.log("EXTRACTED DOC:");
     console.log(JSON.stringify(responseJson, null, 2));
-
-
 }
-
 
 async function main()  {
     let extractionId = await extractFromDocUrl();
