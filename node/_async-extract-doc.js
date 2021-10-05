@@ -9,7 +9,7 @@ var {
 
 // specify your variable values here  
 var docType = "auto_insurance_quote"
-var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
+var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pd"
 
 
 var extractFromDocUrl = async function() {
@@ -33,7 +33,7 @@ var extractFromDocUrl = async function() {
 
     let response = await fetch(`https://api.sensible.so/dev/extract_from_url/${docType}`, requestOptions);
     if (!response.ok){
-      console.log(`An error occured: ${response.status}`);
+      throw Error(response.statusText);
     };
     let responseJson = await response.json();
     let extractionId = responseJson["id"];
@@ -42,7 +42,7 @@ var extractFromDocUrl = async function() {
 
 
   var retrieveExtraction = async function(id) {
-    // wait for the extraction to complete before attempting to retrieve it
+    // wait a few seconds for the extraction to complete before attempting to retrieve it
     await new Promise(r => setTimeout(r, 3000));
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${API_KEY}`);
@@ -55,23 +55,22 @@ var extractFromDocUrl = async function() {
     console.log(`Retrieving extracted data from extraction id ${id}`);
     let response = await fetch(`https://api.sensible.so/dev/documents/${id}`, requestOptions);
     if (!response.ok){
-      console.log(`An error occured: ${response.status}`);
+      throw Error(response.statusText);
     };
     let responseJson = await response.json();
 
 
-    // to avoid polling in prod, implement a webhook 
+    // to avoid polling in prod for the completed extraction, implement a webhook instead 
     while (responseJson["parsed_document"] == null) {
         console.log(responseJson["status"], "\n");
         response = await fetch(`https://api.sensible.so/dev/documents/${id}`, requestOptions);
         if (!response.ok){
-          console.log(`An error occured: ${response.status}`);
+          throw Error(response.statusText);
         };
         responseJson = await response.json();
         if (responseJson["status"] == "FAILED") {
           console.log(JSON.stringify(responseJson, null, 2));
           throw "The extraction failed";
-
         }
         await new Promise(r => setTimeout(r, 3000));
       }

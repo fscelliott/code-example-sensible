@@ -30,7 +30,7 @@ def extract_from_doc_url():
 
 # TODO: replace all /dev/ with /v0/  
 def retrieve_extraction(id):
-  # wait for the extraction to complete before attempting to retrieve it
+  # wait a few seconds for the extraction to complete before attempting to retrieve it
   time.sleep(3)
   print('Retrieving extracted data from extraction id {}\n'.format(id))
   url = "https://api.sensible.so/dev/documents/{}".format(id)
@@ -44,13 +44,13 @@ def retrieve_extraction(id):
   except requests.RequestException as err:
     print(response.text)
     raise SystemExit(err)
-  # to avoid polling in prod, implement a webhook 
+  # to avoid polling in prod for the completed extraction, implement a webhook instead 
   while "parsed_document" not in response.text:
     print(response.json()["status"],"\n")
     response = requests.request("GET", url, headers=headers, data=payload)
     if response.json()["status"]=="FAILED":
       print(json.dumps(response.json(), indent=2))
-      exit()
+      raise Exception("The extraction failed")
     time.sleep(3)  
   print('EXTRACTED DATA:\n')
   print(json.dumps(response.json(), indent=2))
