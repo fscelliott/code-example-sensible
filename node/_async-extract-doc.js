@@ -69,10 +69,8 @@ var extractFromDocUrl = async function() {
         };
         responseJson = await response.json();
         if (responseJson["status"] == "FAILED") {
-          console.log("The extraction failed:")
           console.log(JSON.stringify(responseJson, null, 2));
-
-
+          throw "The extraction failed";
 
         }
         await new Promise(r => setTimeout(r, 3000));
