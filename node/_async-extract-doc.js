@@ -65,7 +65,7 @@ var extractFromDocUrl = async function() {
         }
         await new Promise(r => setTimeout(r, 3000));
       }
-    console.log("EXTRACTED DOC:");
+    console.log("EXTRACTED DATA:");
     console.log(JSON.stringify(responseJson, null, 2));
 }
 
