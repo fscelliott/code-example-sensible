@@ -15,7 +15,9 @@ Doc_local_path = "../../TODELETE_auto_insurance_anyco.pdf"
 # var API_KEY = "YOUR_API_KEY"
 API_KEY = ENV['API_KEY']
 
+
 def self.extract_from_local_doc()
+  puts "extracting from doc #{Doc_local_path}
   begin 
     pdf_bytes = IO.binread(Doc_local_path)
   rescue IOError => e
