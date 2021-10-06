@@ -33,10 +33,12 @@ url = URI("https://api.sensible.so/dev/extract/#{doc_type}")
 response = Faraday.post(url) do |req|
   req.headers['Content-Type'] = 'application/pdf'
   req.body = pdf_bytes
-  #req.body = pdf_bytes
   req.headers["Authorization"] = "Bearer #{API_KEY}"
 end
 
+# TODO: is it a style problem that I don't tell Farady to expect response.body to be JSON?
 puts("RESPONSE")
 puts response.body
+response_json = JSON.parse(response.body)
+puts response_json["id"]
 end
