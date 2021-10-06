@@ -36,7 +36,7 @@ response = Faraday.post(url) do |req|
   req.headers["Authorization"] = "Bearer #{API_KEY}"
 end 
 if !response.success?
-  abort "The request failed: #{response.status}"
+  abort "The request failed: #{response.status} #{response.reason_phrase}"
 end  
 
 # TODO: is it a style problem that I don't tell Farady to expect response.body to be JSON?
