@@ -34,11 +34,12 @@ response = Faraday.post(url) do |req|
   req.headers['Content-Type'] = 'application/pdf'
   req.body = pdf_bytes
   req.headers["Authorization"] = "Bearer #{API_KEY}"
-end
+end 
+if !response.success?
+  abort "The request failed: #{response.status}"
+end  
 
 # TODO: is it a style problem that I don't tell Farady to expect response.body to be JSON?
-puts("RESPONSE")
-puts response.body
-response_json = JSON.parse(response.body)
-puts response_json["id"]
+puts "EXTRACTED DATA"
+puts JSON.pretty_generate(response_json)
 end
