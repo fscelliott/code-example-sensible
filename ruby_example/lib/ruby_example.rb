@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 require_relative "ruby_example/version"
-# require "http"
+require "faraday"
 require "uri" # todo delete these
 require "net/http"
+require 'json'
 # require "dotenv"
 
 # Dotenv.load('./.env')
@@ -21,21 +22,21 @@ doc_local_path = "../../TODELETE_auto_insurance_anyco.pdf"
 # var API_KEY = "YOUR_API_KEY"
 API_KEY = ENV['API_KEY']
 
-
-pdf_bytes = IO.binread(doc_local_path)
-
+begin 
+  pdf_bytes = IO.binread(doc_local_path)
+rescue IOError => e
+  fail(e)
+end 
 
 url = URI("https://api.sensible.so/dev/extract/#{doc_type}")
 
-https = Net::HTTP.new(url.host, url.port)
-https.use_ssl = true
+response = Faraday.post(url) do |req|
+  req.headers['Content-Type'] = 'application/pdf'
+  req.body = pdf_bytes
+  #req.body = pdf_bytes
+  req.headers["Authorization"] = "Bearer #{API_KEY}"
+end
 
-request = Net::HTTP::Post.new(url)
-request["Authorization"] = "Bearer #{API_KEY}"
-request["Content-Type"] = "application/pdf"
-request.body = pdf_bytes
-
-response = https.request(request)
-puts response.read_body
-
+puts("RESPONSE")
+puts response.body
 end
