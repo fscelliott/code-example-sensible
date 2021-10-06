@@ -7,7 +7,7 @@ var { API_KEY } = require('./secrets.js');
 
 // specify your variable values here  
 var docType = "auto_insurance_quote"
-var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pd"
+var docUrl = "https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf"
 // TODO: on publish, specify API key inline here instead + delete test vars
 // var API_KEY = "YOUR_API_KEY"
 
@@ -36,6 +36,7 @@ var extractFromDocUrl = async function() {
   }
 
   var retrieveExtraction = async function(id) {
+    console.log(`Retrieving extracted data from extraction id ${id}`);
     // wait a few seconds for the extraction to complete before attempting to retrieve it
     await new Promise(r => setTimeout(r, 3000));
     var myHeaders = new Headers();
@@ -45,7 +46,6 @@ var extractFromDocUrl = async function() {
         headers: myHeaders,
         redirect: 'follow'
     };
-    console.log(`Retrieving extracted data from extraction id ${id}`);
     let response = await fetch(`https://api.sensible.so/dev/documents/${id}`, requestOptions);
     if (!response.ok){
       throw Error(response.statusText);

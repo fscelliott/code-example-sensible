@@ -15,12 +15,13 @@ doc_url = "https://DOC-URL.pdf"
 
 
 def extract_from_doc_url():  
+  print ("Initiating asyn request to extract from doc at url {}\n".format(doc_url))
+  
   url = "https://api.sensible.so/dev/extract_from_url/{}".format(doc_type)
   payload = json.dumps({"document_url": doc_url})
   headers = {
     'Authorization': 'Bearer {}'.format(API_KEY),  'Content-Type': 'application/json'
   }
-  print ("Initiating asyn request to extract from doc at url {}\n".format(doc_url))
   try:
     response  = requests.request("POST", url, headers=headers, data=payload)
     response.raise_for_status()
@@ -32,9 +33,9 @@ def extract_from_doc_url():
 
 # TODO: replace all /dev/ with /v0/  
 def retrieve_extraction(id):
+  print('Retrieving extracted data from extraction id {}\n'.format(id))
   # wait a few seconds for the extraction to complete before attempting to retrieve it
   time.sleep(3)
-  print('Retrieving extracted data from extraction id {}\n'.format(id))
   url = "https://api.sensible.so/dev/documents/{}".format(id)
   payload={}
   headers = {
