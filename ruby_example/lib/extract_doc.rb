@@ -11,7 +11,7 @@ require 'json'
 # specify your variable values here 
 Doc_type = "auto_insurance_quote"
 Doc_local_path = "../../TODELETE_auto_insurance_anyco.pdf"
-# TODO: on publish, specify API key inline here instead + delete test vars
+# TODO: on publish, specify API key inline here instead + delete test vars and delete .env and remove it from the .gitignore
 # var API_KEY = "YOUR_API_KEY"
 API_KEY = ENV['API_KEY']
 

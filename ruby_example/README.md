@@ -1,35 +1,33 @@
-# RubyExample
+This starter code calls Sensible [extraction APIs](https://docs.sensible.so/reference#extract-data-from-a-document) and returns extracted data from a PDF. You'll need an [API key](https://www.sensible.so/get-early-access).
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ruby_example`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
+Run
+---
+To run the code:
 
-## Installation
+# TODO: verify no need to run gem install json
+- Clone this repo
+- Open a command promt at this cloned directory:
+  - run `gem install faraday`
+  - add your API_KEY (`API_KEY = "YOUR_API_KEY"`) to `extract_doc.rb` (remember to secure this key before committing any of this code).
+- In extract_doc.rb, specify your values for:
+  - the local path to your PDF.
+  - the name of the corresponding doc type you created in the [Sensible app](https://app.sensible.so/).
+- Run `ruby ./lib/extract_doc.rb`. 
 
-Add this line to your application's Gemfile:
+Run with examples
+----
 
-```ruby
-gem 'ruby_example'
-```
 
-And then execute:
+To see example data in a response quickly, run `extract_doc.rb` with an example PDF and config:
 
-    $ bundle install
+- Clone this directory and add your API key
+- Download an example [auto_insurance_quote PDF](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_quote.pdf).
+- In extract_doc.rb, specify your value for the path to the example PDF you downloaded.  
+- In the [Sensible app](https://app.sensible.so/), create and name a doc type (for example, `test_auto_insurance_quote`).
+- In extract_doc.rb, specify your value for the name of the corresponding doc type you created.
+- In the Sensible app, create a config in the doc type (for example, named `anyco`), and paste the [example JSON](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/json/anyco.json) into the left pane of the config editor.
+- Run `ruby ./lib/extract_doc.rb`. 
 
-Or install it yourself as:
 
-    $ gem install ruby_example
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ruby_example.
+ 
