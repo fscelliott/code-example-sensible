@@ -41,5 +41,6 @@ end
 
 # TODO: is it a style problem that I don't tell Farady to expect response.body to be JSON?
 puts "EXTRACTED DATA"
+response_json = JSON.parse(response.body)
 puts JSON.pretty_generate(response_json)
 end
