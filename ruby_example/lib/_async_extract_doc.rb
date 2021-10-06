@@ -36,7 +36,7 @@ end
 def retrieve_extraction(id)
   puts "Retrieving extracted data from extraction id #{id}"
   # wait a few seconds for the extraction to complete before attempting to retrieve it
-  sleep(5)
+  sleep(1)
   url = URI("https://api.sensible.so/dev/documents/#{id}")
   response = Faraday.get(url) do |req|
     req.headers["Authorization"] = "Bearer #{API_KEY}"
@@ -44,8 +44,22 @@ def retrieve_extraction(id)
   if !response.success?
     abort "The request failed: #{response.status} #{response.reason_phrase}"
   end  
+
+  while !response.body.include? "parsed_document"
+    response_json = JSON.parse(response.body)
+    puts response_json["status"]
+    response = Faraday.get(url) do |req|
+      req.headers["Authorization"] = "Bearer #{API_KEY}"
+    end
+    response_json = JSON.parse(response.body)
+    if response_json["status"] == "FAILED"
+      puts JSON.pretty_generate(response_json)
+      abort("The extraction failed")
+    
+    end
+    sleep(3)  
+  end  
   puts "EXTRACTED DATA:"
-  response_json = JSON.parse(response.body)
   puts JSON.pretty_generate(response_json)
 end
 

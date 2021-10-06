@@ -26,6 +26,7 @@ def extract_from_doc_url():
     response  = requests.request("POST", url, headers=headers, data=payload)
     response.raise_for_status()
   except requests.RequestException as err:
+    # TODO: nicer would be to print response.status_code and response.reason, not response.text
     print(response.text)
     raise SystemExit(err)
   extraction_id = response.json()['id']
