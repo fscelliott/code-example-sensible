@@ -46,5 +46,7 @@ if __FILE__ == $PROGRAM_NAME
   end 
   if size_Mb < 4.5
     extract_from_local_doc()
+  else
+    print("PDF greater than 4.5 MB. Run _async_extract_doc.rb instead and define doc_url")  
   end
 end
