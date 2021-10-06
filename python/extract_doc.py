@@ -4,7 +4,6 @@ import json
 import os
 from secrets import API_KEY
 
-
 '''
 extract structured data from PDFs
 '''
