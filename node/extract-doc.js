@@ -18,13 +18,13 @@ const DOCUMENT_PATH = "YOUR_PDF.pdf";
 // Your Sensible API key
 const API_KEY = "YOUR_API_KEY";
 
-const headers = new Headers();
-headers.append("Authorization", `Bearer ${API_KEY}`);
-headers.append("Content-Type", "application/pdf");
-
-const body = fs.readFileSync(DOCUMENT_PATH);
-
 async function main() {
+  const headers = new Headers();
+  headers.append("Authorization", `Bearer ${API_KEY}`);
+  headers.append("Content-Type", "application/pdf");
+
+  const body = fs.readFileSync(DOCUMENT_PATH);
+
   // TODO: Replace dev with v0
   const response = await fetch(
     `https://api.sensible.so/dev/extract/${DOCUMENT_TYPE}`,
