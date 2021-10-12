@@ -12,7 +12,7 @@ const fetch = require("isomorphic-fetch");
 const DOCUMENT_TYPE = "YOUR_DOCUMENT_TYPE";
 
 // The path to the PDF you'd like to parse
-// If the PDF is over ~4.5MB use the async-extract-doc.js script
+// If the PDF is over ~4.5MB use the extract-doc-async.js script
 const DOCUMENT_PATH = "YOUR_PDF.pdf";
 
 // Your Sensible API key
