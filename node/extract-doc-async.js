@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+
+// This script performs an asynchronous extraction of the supplied PDF. See
+// https://docs.sensible.so/docs/api-tutorial-async-1 for more details
+
 const fs = require("fs");
 const fetch = require("isomorphic-fetch");
 
@@ -6,7 +10,7 @@ const fetch = require("isomorphic-fetch");
 const DOCUMENT_TYPE = "YOUR_DOCUMENT_TYPE";
 
 // The URL of the PDF you'd like to parse
-const DOCUMENT_URL = "YOUR_PDF.pdf";
+const DOCUMENT_URL = "YOUR_PDF_URL";
 
 // Your Sensible API key
 const API_KEY = "YOUR_API_KEY";
@@ -42,6 +46,7 @@ async function main() {
       // Wait a few seconds for the extraction to complete on each iteration
       await new Promise((r) => setTimeout(r, 3000));
 
+      // TODO: Replace dev with v0
       const documentResponse = await fetch(
         `https://api.sensible.so/dev/documents/${id}`,
         { headers }
