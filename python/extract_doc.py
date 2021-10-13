@@ -28,7 +28,8 @@ def extract_doc():
         pdf_bytes = pdf_file.read()
     body = pdf_bytes
     response = requests.request(
-        "POST", "https://api.sensible.so/v0/extract/{}".format(DOCUMENT_TYPE),
+        "POST",
+        "https://api.sensible.so/v0/extract/{}".format(DOCUMENT_TYPE),
         headers=headers,
         data=body)
     try:
