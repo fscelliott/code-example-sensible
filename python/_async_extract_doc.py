@@ -10,18 +10,18 @@ import time
 import json
 
 # The name of a document type in Sensible, e.g., auto_insurance_quote
-doc_type = "DOC_TYPE_NAME"
+DOCUMENT_TYPE = "YOUR_DOCUMENT_TYPE"
 # The URL of the PDF you'd like to parse
-doc_url = "YOUR_PDF_URL"
+DOCUMENT_URL = "YOUR_PDF_URL"
 # Your Sensible API key
-API_KEY = ""
+API_KEY = "YOUR_API_KEY"
 
 def extract_from_doc_url():  
-  body = json.dumps({"document_url": doc_url})
+  body = json.dumps({"document_url": DOCUMENT_URL})
   headers = {
     'Authorization': 'Bearer {}'.format(API_KEY),  'Content-Type': 'application/json'
   }
-  response  = requests.request("POST", "https://api.sensible.so/v0/extract_from_url/{}".format(doc_type), headers=headers, data=body)
+  response  = requests.request("POST", "https://api.sensible.so/v0/extract_from_url/{}".format(DOCUMENT_TYPE), headers=headers, data=body)
   try:
     response.raise_for_status()
   except requests.RequestException as err:

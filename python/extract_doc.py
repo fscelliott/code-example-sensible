@@ -7,31 +7,36 @@ longer than 30s unless they require OCR). See https://docs.sensible.so/docs/api-
 for more details
 '''
 
-import requests
 import json
-import os
+import requests
 
-# The name of a document type in Sensible, e.g., auto_insurance_quote 
-doc_type = "YOUR_DOCUMENT_TYPE" 
+# The name of a document type in Sensible, e.g., auto_insurance_quote
+DOCUMENT_TYPE = "YOUR_DOCUMENT_TYPE"
 # The path to the PDF you'd like to parse
-doc_local_path = "YOUR_PDF.pdf"
+# If the PDF is over ~4.5MB use the extract-doc-async.js script
+DOCUMENT_PATH = "YOUR_PDF.pdf"
 # Your Sensible API key
 API_KEY = "YOUR_API_KEY"
 
-def extract_doc():  
-  with open(doc_local_path, 'rb') as pdf_file:
-      pdf_bytes = pdf_file.read()
-  payload = pdf_bytes
-  headers = {
-  'Authorization': 'Bearer {}'.format(API_KEY),
-  'Content-Type': 'application/pdf'
-}
-  response = requests.request("POST", "https://api.sensible.so/v0/extract/{}".format(doc_type), headers=headers, data=payload)
-  try:
-    response.raise_for_status()
-  except requests.RequestException as err:
-    print(response.text)
-  print(json.dumps(response.json(), indent=2))
+
+def extract_doc():
+    headers = {
+        'Authorization': 'Bearer {}'.format(API_KEY),
+        'Content-Type': 'application/pdf'
+    }
+    with open(DOCUMENT_PATH, 'rb') as pdf_file:
+        pdf_bytes = pdf_file.read()
+    body = pdf_bytes
+    response = requests.request(
+        "POST", "https://api.sensible.so/v0/extract/{}".format(DOCUMENT_TYPE), headers=headers, data=body)
+    try:
+        response.raise_for_status()
+    except requests.RequestException:
+        print(response.text)
+    else:
+        print(json.dumps(response.json(), indent=2))
+
 
 if __name__ == '__main__':
-  extract_doc()
+    extract_doc()
+    
