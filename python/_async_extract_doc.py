@@ -1,22 +1,22 @@
 #!/usr/local/bin/python
+
+'''
+This script performs an asynchronous extraction of the supplied PDF. See
+https://docs.sensible.so/docs/api-tutorial-async-1 for more details
+'''
+
 import requests
 import time
 import json
-from secrets import API_KEY
 
-'''
-extract structured data from PDFs over 4.5MB or that require over 30 seconds to process
-'''
-# specify your variable values here 
+# The name of a document type in Sensible, e.g., auto_insurance_quote
 doc_type = "DOC_TYPE_NAME"
+# The URL of the PDF you'd like to parse
 doc_url = "https://DOC-URL.pdf"
-# TODO: on publish, specify API key inline here instead + delete test vars
-# var API_KEY = "YOUR_API_KEY"
-
+# Your Sensible API key
+API_KEY = "YOUR_API_KEY"
 
 def extract_from_doc_url():  
-  print ("Initiating asyn request to extract from doc at url {}\n".format(doc_url))
-  
   url = "https://api.sensible.so/dev/extract_from_url/{}".format(doc_type)
   payload = json.dumps({"document_url": doc_url})
   headers = {

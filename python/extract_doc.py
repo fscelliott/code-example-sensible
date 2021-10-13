@@ -21,13 +21,12 @@ API_KEY = "YOUR_API_KEY"
 def extract_doc():  
   with open(doc_local_path, 'rb') as pdf_file:
       pdf_bytes = pdf_file.read()
-  url = "https://api.sensible.so/dev/extract/{}".format(doc_type)
   payload = pdf_bytes
   headers = {
   'Authorization': 'Bearer {}'.format(API_KEY),
   'Content-Type': 'application/pdf'
 }
-  response = requests.request("POST", url, headers=headers, data=payload)
+  response = requests.request("POST", "https://api.sensible.so/dev/extract/{}".format(doc_type), headers=headers, data=payload)
   try:
     response.raise_for_status()
   except requests.RequestException as err:
