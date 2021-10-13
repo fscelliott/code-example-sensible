@@ -39,10 +39,10 @@ async function main() {
     // This is the ID we'll poll to retrieve the extraction
     // In production you'd use a webhook to avoid polling
     const { id } = await response.json();
-    let json = {};
+    let document_extraction = await response.json();
     let pollCount = 0;
 
-    while (!json.parsed_document) {
+    while (document_extraction.status == "WAITING") {
       // Wait a few seconds for the extraction to complete on each iteration
       await new Promise((r) => setTimeout(r, 3000));
 
@@ -56,17 +56,14 @@ async function main() {
         console.log(await documentResponse.text());
         break;
       } else {
-        json = await documentResponse.json();
+        document_extraction = await documentResponse.json();
 
-        console.log(`Poll attempt ${++pollCount} status: ${json.status}`);
-
-        if (json.status === "FAILED") {
-          break;
+        console.log(`Poll attempt ${++pollCount} status: ${document_extraction.status}`);
         }
       }
     }
 
-    console.log(JSON.stringify(json, null, 2));
+    console.log(JSON.stringify(document_extraction, null, 2));
   }
 }
 

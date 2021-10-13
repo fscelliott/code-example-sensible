@@ -36,9 +36,9 @@ def extract_from_doc_url():
         # This is the ID we'll poll to retrieve the extraction
         # In production you'd use a webhook to avoid polling
         extraction_id = response.json()['id']
-        json_response = {}
+        document_extraction = response.json()
         poll_count = 0
-        while "parsed_document" not in json_response:
+        while document_extraction["status"] == "WAITING":
             # Wait a few seconds for the extraction to complete on each iteration
             time.sleep(3)
             poll_count += 1
@@ -52,12 +52,10 @@ def extract_from_doc_url():
                 print(response.text)
                 break
             else:
-                json_response = response.json()
+                document_extraction = response.json()
                 print("Poll attempt: {} status: {}".format(
-                    poll_count, json_response["status"]))
-                if json_response["status"] == "FAILED":
-                    break
-        print(json.dumps(json_response, indent=2))
+                    poll_count, document_extraction["status"]))
+        print(json.dumps(document_extraction, indent=2))
 
 
 if __name__ == '__main__':
