@@ -1,53 +1,45 @@
 #!/usr/bin/env node
 
-var fetch = require('isomorphic-fetch');
-var fs = require('fs');
-var { API_KEY } = require('./secrets.js');
+// This script performs a synchronous extraction of the supplied PDF and is limited to
+// PDFs of ~4.5MB or less with an extraction runtime under 30s (extractions rarely take
+// longer than 30s unless they require OCR). See https://docs.sensible.so/docs/api-tutorial-sync
+// for more details
 
+const fs = require("fs");
+const fetch = require("isomorphic-fetch");
 
-// specify your variable values here  
-var docType = "auto_insurance_quote"
-var docLocalPath = "../TODELETE_auto_insurance_anyco.pdf"
-// TODO: on publish, specify API key inline here instead + delete test vars
-// var API_KEY = "YOUR_API_KEY"
+// The name of a document type in Sensible, e.g., auto_insurance_quote
+const DOCUMENT_TYPE = "YOUR_DOCUMENT_TYPE";
 
-var extractFromLocalFile = function() {
-    try {
-        var pdfBytes = fs.readFileSync(docLocalPath);
-    } catch (e) {
-        console.error(err);
+// The path to the PDF you'd like to parse
+// If the PDF is over ~4.5MB use the extract-doc-async.js script
+const DOCUMENT_PATH = "YOUR_PDF.pdf";
+
+// Your Sensible API key
+const API_KEY = "YOUR_API_KEY";
+
+async function main() {
+  const headers = new Headers();
+  headers.append("Authorization", `Bearer ${API_KEY}`);
+  headers.append("Content-Type", "application/pdf");
+
+  const body = fs.readFileSync(DOCUMENT_PATH);
+
+  // TODO: Replace dev with v0
+  const response = await fetch(
+    `https://api.sensible.so/dev/extract/${DOCUMENT_TYPE}`,
+    {
+      method: "POST",
+      headers,
+      body,
     }
+  );
 
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${API_KEY}`);
-    myHeaders.append("Content-Type", "application/pdf");
-
-    var file = pdfBytes;
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: file,
-        redirect: 'follow'
-    };
-
-    fetch(`https://api.sensible.so/dev/extract/${docType}`, requestOptions)
-        .then(response => response.json())
-        .then(responseJson => console.log("EXTRACTED DATA:\n", JSON.stringify(responseJson, null, 2))) 
-        .catch(error => console.log('error', error));
+  if (!response.ok) {
+    console.log(await response.text());
+  } else {
+    console.log(JSON.stringify(await response.json(), null, 2));
+  }
 }
 
-if (require.main === module) {
-    var sizeMb;
-    try {
-        const stats = fs.statSync(docLocalPath);
-        sizeMb = stats.size / (1024 * 1024);
-    } catch (err) {
-        console.error(err);
-    }
-    if (sizeMb < 4.5) {
-        extractFromLocalFile();
-    } else {
-        console.log("PDF greater than 4.5 MB. Run _async_extract-doc instead and define docUrl")
-    }
-}
+main();
