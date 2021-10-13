@@ -1,47 +1,38 @@
 #!/usr/local/bin/python
+
+'''
+This script performs a synchronous extraction of the supplied PDF and is limited to
+PDFs of ~4.5MB or less with an extraction runtime under 30s (extractions rarely take
+longer than 30s unless they require OCR). See https://docs.sensible.so/docs/api-tutorial-sync
+for more details
+'''
+
 import requests
 import json
 import os
-from secrets import API_KEY
 
-'''
-extract structured data from PDFs
-'''
-# TODO: delete test vars on publish
-# specify your variable values here 
-doc_type = "auto_insurance_quote"
-doc_local_path = "../TODELETE_auto_insurance_anyco.pdf"
-# TODO: on publish, specify API key inline here instead + delete test vars
-# var API_KEY = "YOUR_API_KEY"
+# The name of a document type in Sensible, e.g., auto_insurance_quote 
+doc_type = "auto_insurance_quote" # YOUR_DOCUMENT_TYPE TODO
+# The path to the PDF you'd like to parse
+doc_local_path = "../TODELETE_auto_insurance_anyco.pdf" # YOUR_PDF.pdf
+# Your Sensible API key
+API_KEY = "YOUR_API_KEY"
 
-def extract_from_local_doc():  
-  print("extracting from doc: {}\n".format(doc_local_path))
-  try:
-    with open(doc_local_path, 'rb') as pdf_file:
+def extract_doc():  
+  with open(doc_local_path, 'rb') as pdf_file:
       pdf_bytes = pdf_file.read()
-      pdf_file.close()
-  except IOError as err:
-    raise SystemExit(err)
   url = "https://api.sensible.so/dev/extract/{}".format(doc_type)
   payload = pdf_bytes
   headers = {
   'Authorization': 'Bearer {}'.format(API_KEY),
   'Content-Type': 'application/pdf'
 }
-
+  response = requests.request("POST", url, headers=headers, data=payload)
   try:
-    response = requests.request("POST", url, headers=headers, data=payload)
     response.raise_for_status()
   except requests.RequestException as err:
     print(response.text)
-    raise SystemExit(err)
-  print('EXTRACTED DATA:\n')  
   print(json.dumps(response.json(), indent=2))
 
-
 if __name__ == '__main__':
-  size_mb= os.path.getsize(doc_local_path)/(1024*1024)
-  if size_mb > 4.5:
-    print("PDF greater than 4.5 MB. Run _async_extract_doc.py instead and define doc_url")
-  else:
-    extract_from_local_doc()
+  extract_doc()
