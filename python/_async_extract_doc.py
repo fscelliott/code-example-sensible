@@ -12,54 +12,45 @@ import json
 # The name of a document type in Sensible, e.g., auto_insurance_quote
 doc_type = "DOC_TYPE_NAME"
 # The URL of the PDF you'd like to parse
-doc_url = "https://DOC-URL.pdf"
+doc_url = "YOUR_PDF_URL"
 # Your Sensible API key
-API_KEY = "YOUR_API_KEY"
+API_KEY = ""
 
 def extract_from_doc_url():  
-  url = "https://api.sensible.so/dev/extract_from_url/{}".format(doc_type)
-  payload = json.dumps({"document_url": doc_url})
+  body = json.dumps({"document_url": doc_url})
   headers = {
     'Authorization': 'Bearer {}'.format(API_KEY),  'Content-Type': 'application/json'
   }
+  response  = requests.request("POST", "https://api.sensible.so/dev/extract_from_url/{}".format(doc_type), headers=headers, data=body)
   try:
-    response  = requests.request("POST", url, headers=headers, data=payload)
     response.raise_for_status()
   except requests.RequestException as err:
-    # TODO: nicer would be to print response.status_code and response.reason, not response.text
     print(response.text)
-    raise SystemExit(err)
+  # This is the ID we'll poll to retrieve the extraction
+  # In production you'd use a webhook to avoid polling
   extraction_id = response.json()['id']
-  return extraction_id
-
-# TODO: replace all /dev/ with /v0/  
-def retrieve_extraction(id):
-  print('Retrieving extracted data from extraction id {}\n'.format(id))
-  # wait a few seconds for the extraction to complete before attempting to retrieve it
-  time.sleep(3)
-  url = "https://api.sensible.so/dev/documents/{}".format(id)
-  payload={}
-  headers = {
-    'Authorization': 'Bearer {}'.format(API_KEY)
-  }
-  try:
-    response  = requests.request("GET", url, headers=headers, data=payload)
-    response.raise_for_status()
-  except requests.RequestException as err:
-    print(response.text)
-    raise SystemExit(err)
-  # to avoid polling in prod for the completed extraction, implement a webhook instead 
-  while "parsed_document" not in response.text:
-    print(response.json()["status"],"\n")
-    response = requests.request("GET", url, headers=headers, data=payload)
-    if response.json()["status"]=="FAILED":
-      print(json.dumps(response.json(), indent=2))
-      raise Exception("The extraction failed")
-    time.sleep(3)  
-  print('EXTRACTED DATA:\n')
-  print(json.dumps(response.json(), indent=2))
+  json_response = {}
+  poll_count = 0
+  while not "parsed_document" in json_response:
+    # Wait a few seconds for the extraction to complete on each iteration
+    time.sleep(3)
+    poll_count +=1
+    headers = {
+      'Authorization': 'Bearer {}'.format(API_KEY)
+    }
+    response  = requests.request("GET", "https://api.sensible.so/dev/documents/{}".format(extraction_id), headers=headers)
+    try:
+      response.raise_for_status()
+    except requests.RequestException as err:
+      print(response.text)
+      break
+    json_response = response.json()
+    print("Poll attempt: {} status: {}".format(poll_count, json_response["status"]))
+    if json_response["status"] == "FAILED":
+      break
+  print(json.dumps(json_response, indent=2))
 
 
 if __name__ == '__main__':
-  extraction_id = extract_from_doc_url()
-  retrieve_extraction(extraction_id)
+  extract_from_doc_url()
+
