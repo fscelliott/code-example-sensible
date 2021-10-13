@@ -25,7 +25,7 @@ async function main() {
   });
 
   const response = await fetch(
-    `https://api.sensible.so/dev/extract_from_url/${DOCUMENT_TYPE}`,
+    `https://api.sensible.so/v0/extract_from_url/${DOCUMENT_TYPE}`,
     {
       method: "POST",
       headers,
@@ -48,7 +48,7 @@ async function main() {
 
       // TODO: Replace dev with v0
       const documentResponse = await fetch(
-        `https://api.sensible.so/dev/documents/${id}`,
+        `https://api.sensible.so/v0/documents/${id}`,
         { headers }
       );
 

@@ -25,9 +25,8 @@ async function main() {
 
   const body = fs.readFileSync(DOCUMENT_PATH);
 
-  // TODO: Replace dev with v0
   const response = await fetch(
-    `https://api.sensible.so/dev/extract/${DOCUMENT_TYPE}`,
+    `https://api.sensible.so/v0/extract/${DOCUMENT_TYPE}`,
     {
       method: "POST",
       headers,
