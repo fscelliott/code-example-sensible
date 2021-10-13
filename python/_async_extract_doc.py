@@ -21,14 +21,16 @@ def extract_from_doc_url():
   headers = {
     'Authorization': 'Bearer {}'.format(API_KEY),  'Content-Type': 'application/json'
   }
-  response  = requests.request("POST", "https://api.sensible.so/v0/extract_from_url/{}".format(DOCUMENT_TYPE), headers=headers, data=body)
+  response  = requests.request("POST", "https://api.sensible.so/v0/extract_from_url/{}".format(DOCUMENT_TYPE),
+    headers=headers,
+    data=body)
   try:
     response.raise_for_status()
   except requests.RequestException as err:
     print(response.text)
   # This is the ID we'll poll to retrieve the extraction
   # In production you'd use a webhook to avoid polling
-  extraction_id = response.json()['id']
+  id = response.json()['id']
   json_response = {}
   poll_count = 0
   while not "parsed_document" in json_response:
@@ -38,7 +40,8 @@ def extract_from_doc_url():
     headers = {
       'Authorization': 'Bearer {}'.format(API_KEY)
     }
-    response  = requests.request("GET", "https://api.sensible.so/v0/documents/{}".format(extraction_id), headers=headers)
+    response  = requests.request("GET", "https://api.sensible.so/v0/documents/{}".format(id),
+      headers=headers)
     try:
       response.raise_for_status()
     except requests.RequestException as err:
