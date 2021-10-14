@@ -11,7 +11,7 @@ import requests
 
 # The name of a document type in Sensible, e.g., auto_insurance_quote
 DOCUMENT_TYPE = "YOUR_DOCUMENT_TYPE"
-# The URL of the PDF you'd like to parse
+# The URL of the PDF you'd like to extract from
 DOCUMENT_URL = "YOUR_PDF_URL"
 # Your Sensible API key
 API_KEY = "YOUR_API_KEY"

@@ -9,7 +9,7 @@ const fetch = require("isomorphic-fetch");
 // The name of a document type in Sensible, e.g., auto_insurance_quote
 const DOCUMENT_TYPE = "YOUR_DOC_TYPE";
 
-// The URL of the PDF you'd like to parse
+// The URL of the PDF you'd like to extract from
 const DOCUMENT_URL = "YOUR_DOC_URL";
 
 // Your Sensible API key
