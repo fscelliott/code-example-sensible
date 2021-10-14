@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
-// This script performs an asynchronous extraction of the supplied PDF. See
-// https://docs.sensible.so/docs/api-tutorial-async-1 for more details
+// This script asynchronously extracts structured data from the specified PDF.
+// For more information, see https://docs.sensible.so/docs/api-tutorial-async-1.
 
 const fs = require("fs");
 const fetch = require("isomorphic-fetch");
 
 // The name of a document type in Sensible, e.g., auto_insurance_quote
-const DOCUMENT_TYPE = "YOUR_DOCUMENT_TYPE";
+const DOCUMENT_TYPE = "YOUR_DOC_TYPE";
 
 // The URL of the PDF you'd like to parse
-const DOCUMENT_URL = "YOUR_PDF_URL";
+const DOCUMENT_URL = "YOUR_DOC_URL";
 
 // Your Sensible API key
 const API_KEY = "YOUR_API_KEY";
@@ -38,33 +38,30 @@ async function main() {
   } else {
     // This is the ID we'll poll to retrieve the extraction
     // In production you'd use a webhook to avoid polling
-    const { id } = await response.json();
-    let document_extraction = await response.json();
+    var documentExtraction = await response.json();
+    const id = documentExtraction.id;
     let pollCount = 0;
 
-    while (document_extraction.status == "WAITING") {
+    while (documentExtraction.status == "WAITING") {
       // Wait a few seconds for the extraction to complete on each iteration
       await new Promise((r) => setTimeout(r, 3000));
 
-      // TODO: Replace dev with v0
-      const documentResponse = await fetch(
+      const response = await fetch(
         `https://api.sensible.so/v0/documents/${id}`,
         { headers }
       );
 
       if (!response.ok) {
-        console.log(await documentResponse.text());
+        console.log(await response.text());
         break;
       } else {
-        document_extraction = await documentResponse.json();
-
-        console.log(`Poll attempt ${++pollCount} status: ${document_extraction.status}`);
-        }
+        documentExtraction = await response.json();
+        console.log(
+          `Poll attempt: ${++pollCount}, status: ${documentExtraction.status}`
+        );
       }
     }
-
-    console.log(JSON.stringify(document_extraction, null, 2));
   }
-}
 
-main();
+  console.log(JSON.stringify(documentExtraction, null, 2));
+}

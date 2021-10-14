@@ -1,10 +1,10 @@
 #!/usr/local/bin/python
 
 '''
-This script performs a synchronous extraction of the supplied PDF and is limited to
+This script synchronously extracts structured data from the specified PDF and is limited to
 PDFs of ~4.5MB or less with an extraction runtime under 30s (extractions rarely take
-longer than 30s unless they require OCR). See https://docs.sensible.so/docs/api-tutorial-sync
-for more details
+longer than 30s unless they require OCR). For more information
+see https://docs.sensible.so/docs/api-tutorial-sync
 '''
 
 import json

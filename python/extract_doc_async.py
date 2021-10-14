@@ -1,8 +1,8 @@
 #!/usr/local/bin/python
 
 '''
-This script performs an asynchronous extraction of the supplied PDF. See
-https://docs.sensible.so/docs/api-tutorial-async-1 for more details
+This script asynchronously extracts structured data from the specified PDF.
+For more information, see https://docs.sensible.so/docs/api-tutorial-async-1.
 '''
 
 import time
@@ -53,7 +53,7 @@ def extract_from_doc_url():
                 break
             else:
                 document_extraction = response.json()
-                print("Poll attempt: {} status: {}".format(
+                print("Poll attempt: {}, status: {}".format(
                     poll_count, document_extraction["status"]))
         print(json.dumps(document_extraction, indent=2))
 
