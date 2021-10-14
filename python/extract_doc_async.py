@@ -35,8 +35,8 @@ def extract_from_doc_url():
     else:
         # This is the ID we'll poll to retrieve the extraction
         # In production you'd use a webhook to avoid polling
-        extraction_id = response.json()['id']
         document_extraction = response.json()
+        extraction_id = document_extraction['id']
         poll_count = 0
         while document_extraction["status"] == "WAITING":
             # Wait a few seconds for the extraction to complete on each iteration
