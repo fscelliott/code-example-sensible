@@ -1,6 +1,6 @@
 {
   "name": "node",
-  "type": "commonjs",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "extract-doc.js",
@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "isomorphic-fetch": "^3.0.0",
-    "prettier": "^2.4.1"
+    "node-fetch": "^3.0.0"
   }
 }

@@ -19,7 +19,7 @@ Run with examples
 To see example data in a response quickly, run extract-doc.js with an example PDF and config:
 
 - Clone this directory, install dependencies, and add your API key (see previous steps).
-- Download an example [auto_insurance_quote PDF](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_quote_anyco.pdf).
+- Download an example [auto_insurance_quote PDF](https://github.com/sensible-hq/sensible-docs/blob/main/readme-sync/assets/v0/pdfs/auto_insurance_anyco.pdf).
 - In the [Sensible app](https://app.sensible.so/), create a doc type (for example, `test_auto_insurance_quote`).
 - In the Sensible app, create a config in the doc type, for example `anyco`, and paste the [example JSON](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/json/anyco.json) into the left pane of the config editor. 
 - In the Sensible app, publish the config (**Publish** > **Production**). 

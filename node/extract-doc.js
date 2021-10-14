@@ -5,8 +5,9 @@
 // longer than 30s unless they require OCR). For more information
 // see https://docs.sensible.so/docs/api-tutorial-sync.
 
-const fs = require("fs");
-const fetch = require("isomorphic-fetch");
+import fs from "fs";
+import fetch from "node-fetch"; 
+import { Headers } from "node-fetch"; 
 
 // The name of a document type in Sensible, e.g., auto_insurance_quote
 const DOCUMENT_TYPE = "YOUR_DOCUMENT_TYPE";
