@@ -5,28 +5,29 @@ Run
 ---
 To run the code:
 
-- Clone this repo
+- Clone this repo.
 - Open a command promt at this cloned directory:
-  - run `touch secrets.py`
-  - add your API_KEY (`API_KEY = "YOUR_API_KEY"`) to the secrets file. 
-  - Verify that .gitignore lists secrets.py so you don't expose your key publically.
-- In extract_doc.py, specify your variable values for:
+  - To install dependencies, run `python -m pip install requests`.
+- Open extract_docs.py in a text editor and specify:
+  - your API key. Be sure to secure this key before committing.
   - the local path to your PDF.
-  - the name of the corresponding doc type you created in the [Sensible app](https://app.sensible.so/).
+  - the name of the doc type that you created in the [Sensible app](https://app.sensible.so/).
 - Run `python extract_doc.py`. 
 
 Run with examples
 ----
 
-
 To see example data in a response quickly, run `extract_doc.py` with an example PDF and config:
 
-- Clone this directory and add your API key to the secrets file (see previous steps).
-- Download an example [auto_insurance_quote PDF](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_quote.pdf).
-- In extract_doc.py, specify your variable value for the path to the example PDF you downloaded.  
-- In the [Sensible app](https://app.sensible.so/), create and name a doc type (for example, `test_auto_insurance_quote`).
-- In extract_doc.py, specify your variable value for the name of the corresponding doc type you created.
-- In the Sensible app, create a config in the doc type (for example, named `anyco`), and paste the [example JSON](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/json/anyco.json) into the left pane of the config editor.
+- Clone this directory, install dependencies, and add your API key (see previous steps).
+- Download an example [auto_insurance_quote PDF](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/pdfs/auto_insurance_quote.pdf). 
+- In the [Sensible app](https://app.sensible.so/), create a doc type. For example, `test_auto_insurance_quote`.
+- In the Sensible app, create a config in the doc type, for example `anyco`, and paste the [example JSON](https://github.com/sensible-hq/sensible-docs/raw/main/readme-sync/assets/v0/json/anyco.json) into the left pane of the config editor.
+- In the Sensible app, publish the config (**Publish** > **Production**). 
+- Open extract_doc.py in a text editor and specify:
+  - the path to the example PDF you downloaded.
+  - the name of the doc type you created.
+
 - Run `python extract_doc.py`. 
 
 
