@@ -33,18 +33,16 @@ def extract_from_doc_url():
     except requests.RequestException:
         print(response.text)
     else:
-        # This is the ID we'll poll to retrieve the extraction
-        # In production you'd use a webhook to avoid polling
         document_extraction = response.json()
-        extraction_id = document_extraction['id']
         poll_count = 0
+        # In production you'd use a webhook to avoid polling
         while document_extraction["status"] == "WAITING":
             # Wait a few seconds for the extraction to complete on each iteration
             time.sleep(3)
             poll_count += 1
             response = requests.request(
                 "GET",
-                "https://api.sensible.so/v0/documents/{}".format(extraction_id),
+                "https://api.sensible.so/v0/documents/{}".format(document_extraction['id']),
                 headers=headers)
             try:
                 response.raise_for_status()

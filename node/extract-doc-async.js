@@ -7,10 +7,10 @@ const fs = require("fs");
 const fetch = require("isomorphic-fetch");
 
 // The name of a document type in Sensible, e.g., auto_insurance_quote
-const DOCUMENT_TYPE = "YOUR_DOC_TYPE";
+const DOCUMENT_TYPE = "YOUR_DOCUMENT_TYPE";
 
 // The URL of the PDF you'd like to extract from
-const DOCUMENT_URL = "YOUR_DOC_URL";
+const DOCUMENT_URL = "YOUR_DOCUMENT_URL";
 
 // Your Sensible API key
 const API_KEY = "YOUR_API_KEY";
@@ -32,22 +32,18 @@ async function main() {
       body,
     }
   );
-
   if (!response.ok) {
     console.log(await response.text());
   } else {
-    // This is the ID we'll poll to retrieve the extraction
-    // In production you'd use a webhook to avoid polling
-    var documentExtraction = await response.json();
-    const id = documentExtraction.id;
+    let documentExtraction = await response.json();
     let pollCount = 0;
-
+    // In production you'd use a webhook to avoid polling
     while (documentExtraction.status == "WAITING") {
       // Wait a few seconds for the extraction to complete on each iteration
       await new Promise((r) => setTimeout(r, 3000));
 
       const response = await fetch(
-        `https://api.sensible.so/v0/documents/${id}`,
+        `https://api.sensible.so/v0/documents/${documentExtraction.id}`,
         { headers }
       );
 
@@ -60,8 +56,9 @@ async function main() {
           `Poll attempt: ${++pollCount}, status: ${documentExtraction.status}`
         );
       }
+    console.log(JSON.stringify(documentExtraction, null, 2));  
     }
   }
-
-  console.log(JSON.stringify(documentExtraction, null, 2));
 }
+
+main();
