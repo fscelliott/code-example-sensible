@@ -39,7 +39,7 @@ async function main() {
     let pollCount = 0;
     // In production you'd use a webhook to avoid polling
     while (documentExtraction.status == "WAITING") {
-      // Wait a few seconds for the extraction to complete on each iteration
+      // Wait a few seconds before each poll until the extraction completes
       await new Promise((r) => setTimeout(r, 3000));
 
       const response = await fetch(
